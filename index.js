@@ -1,8 +1,15 @@
-var express = require('C:/Users/Administrator/AppData/Local/Microsoft/TypeScript/2.9/node_modules/@types/express');
+var express = require('express');
+var nunjucks = require('nunjucks');
 var app = express();
 
-app.get('/',function(req,res){
-    res.send('hello okr')
+nunjucks.configure('views', {
+    autoescape: true,
+    noCache: true,
+    express: app,
+});
+
+app.get('/personal',function(req,res){
+    res.render('personal.html')
 });
 
 
