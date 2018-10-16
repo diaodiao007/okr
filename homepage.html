@@ -229,12 +229,7 @@
                 <div class="title">
 
                     {% for item in items %}
-                    <div>{{ item.created_at}}</div>
-                    <div>{{ item.phone}}</div>
-                    <div>{{ item.id}}</div>
                     <img src="{{ item.avatar}}">
-                    <div>{{ item.username}}</div>
-
                     {% endfor %}
 
                 </div>
@@ -250,7 +245,7 @@
                 </div>
                 <div class="modal-land">登陆</div>
                 <div class="input-box">
-                    <input id="username" name="username" autocomplete="off" placeholder="邮箱或昵称">
+                    <input id="phone" name="phone" autocomplete="off" placeholder="邮箱或手机号">
                 </div>
                 <div class="input-box" style="padding-top: 30px;">
                     <input id="password" name="password" autocomplete="off" placeholder="密码">
@@ -271,14 +266,14 @@
                 <form action="/api/homepage" method="POST">
                     <div class="input-box">
 
-                        <input id="username" name="username" autocomplete="off" placeholder="邮箱或昵称">
+                        <input id="phone" name="phone" autocomplete="off" placeholder="邮箱或手机号">
 
                     </div>
                     <div class="input-box" style="padding-top: 30px;">
                         <input id="password" name="password" autocomplete="off" placeholder="请输入您的密码">
                     </div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input id="" name="" autocomplete="off" placeholder="请输入6位验证码">
+                        <input id="token" name="token" autocomplete="off" placeholder="请输入6位验证码">
                         <button>获取验证码</button>
                     </div>
                     <div class="modal-bottom">
