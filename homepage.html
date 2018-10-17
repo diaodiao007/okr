@@ -210,10 +210,50 @@
             display: none;
             border-radius: 4px;
         }
+        .post{
+            position:relative;
+            width: 610px;
+            border-radius: 4px;
+            margin-top: 20px;
+            background:rgba(255,255,255,1);
+        }
+        .post-box{
+            width: 100%;
+            height: 100%;
+            margin-left: 18px;
+            margin-top: 10px; 
+            padding: 0px; 
+            border-style: none; 
+            border-width: 0px; 
+            font-size: 18px; 
+            overflow-wrap: break-word; 
+            overflow: hidden; 
+            outline: none;
+            resize:none;
+            border:1px solid rgba(241,241,241,1);
+        }
+
+        .posted {
+            width:540px;
+            height:80px;
+            margin-top: 10px;
+            margin-left:15px;
+        }
+
+        .post-content {
+            margin-left:18px;
+        }
+
+        .button1 {
+            width:70px;
+            height:33px;
+            margin:10px 18px 16px 522px;
+        }
     </style>
 </head>
 
 <body style="background:rgba(236,239,243,1)">
+
     <div id="container">
         <div class="top">
             <div class="logo">
@@ -226,13 +266,25 @@
         </div>
         <div class="main">
             <div class="main-left">
+                <div class="post">
+                    <div style="margin-left: 20px;padding-top:16px;">给自己定个小目标吧！</div>
+                    <form action="/api/post" method="POST">
+                      <div class="post-content">o: <input class="posted"  type="text" name="o" placeholder="  请输入您的内容......"></div> 
+                      <div class="post-content">K: <input class="posted"  type="text" name="k" placeholder="  请输入您的内容......"></div> 
+                      <div class="post-content">R: <input class="posted"  type="text" name="r" placeholder="  请输入您的内容......"></div> 
+                    <div><button class="button1">发布</button></div>
+                </form>
+                </div>
+                {% for okr in okrs %}
                 <div class="title">
 
-                    {% for item in items %}
-                    <img src="{{ item.avatar}}">
-                    {% endfor %}
+                    
+                    <div>{{ okr.created_at}}</div>
+                    <div>{{ okr.object}}</div>
+                   
 
                 </div>
+                {% endfor %}
             </div>
 
             <div class="main-right"></div>
@@ -240,50 +292,39 @@
 
             <div class="mask"></div>
             <div class="modal">
-                <div class="modal-title">
-                    <img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true">
-                </div>
+                <div class="modal-title"><img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true"
+                        alt=""></div>
                 <div class="modal-land">登陆</div>
-                <div class="input-box">
-                    <input id="phone" name="phone" autocomplete="off" placeholder="邮箱或手机号">
-                </div>
-                <div class="input-box" style="padding-top: 30px;">
-                    <input id="password" name="password" autocomplete="off" placeholder="密码">
-                </div>
-                <div class="forget">忘记密码？</div>
-                <div class="modal-bottom">
-                    <button>登陆</button>
-                </div>
-                <div class="modal-bottom-2">没有账号?
-                    <span class="register">注册</span>
-                </div>
+                <form action="/api/land" method="POST">
+                    <div class="input-box">
+                        <input name="phone" autocomplete="off" placeholder="电话号码"></div>
+                    <div class="input-box" style="padding-top: 30px;">
+                        <input name="password" autocomplete="off" placeholder="密码"></div>
+                    <div class="forget">忘记密码？</div>
+                    <div class="modal-bottom">
+                        <input type="submit" value="登陆" />
+                        <!-- <button>登陆</button> -->
+                    </div>
+                </form>
+                <div class="modal-bottom-2">没有账号?<span class="register">注册</span></div>
             </div>
             <div class="modal-2">
-                <div class="modal-title">
-                    <img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true">
-                </div>
+                <div class="modal-title"><img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true"
+                        alt=""></div>
                 <div class="modal-land">注册</div>
-                <form action="/api/homepage" method="POST">
+                <form action="/api/register" method="POST">
                     <div class="input-box">
-
-                        <input id="phone" name="phone" autocomplete="off" placeholder="邮箱或手机号">
-
-                    </div>
+                        <input name="phone" autocomplete="off" placeholder="手机号码"></div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input id="password" name="password" autocomplete="off" placeholder="请输入您的密码">
-                    </div>
+                        <input name="password" autocomplete="off" placeholder="请输入您的密码"></div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input id="token" name="token" autocomplete="off" placeholder="请输入6位验证码">
-                        <button>获取验证码</button>
-                    </div>
+                        <input name="token" autocomplete="off" placeholder="请输入6位验证码"><button>获取验证码</button></div>
                     <div class="modal-bottom">
-                        <input type="submit" value="注册">
+                        <input type="submit" value="注册" />
+                        <!-- <button>注册</button> -->
                     </div>
-
                 </form>
-                <div class="modal-bottom-2">已有账号?
-                    <span class="landing">登陆</span>
-                </div>
+                <div class="modal-bottom-2">已有账号?<span class="landing">登陆</span></div>
             </div>
         </div>
     </div>
