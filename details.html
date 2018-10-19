@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Okr详情页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            width: 100%;
+        }
+
+        .top {
+            width: 100%;
+            height: 56px;
+            background: rgba(74, 144, 226, 1);
+        }
+
+        .logo {
+            width: 920px;
+            margin: 0 auto;
+        }
+
+        .top a {
+            color: #FFFFFF;
+            text-decoration: none;
+            width: 46px;
+            height: 42px;
+            font-size: 30px;
+            /* font-family: PingFangSC-Medium; */
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            line-height: 56px;
+
+        }
+
+        .land {
+            margin-right: 0;
+            /* display: inline; */
+            float: right;
+            font-size: 16px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 1);
+            line-height: 56px;
+
+        }
+
+        .land span {
+            margin-left: 20px;
+            cursor: pointer
+        }
+
+        .main {
+            /* border: 1px solid red; */
+            width: 920px;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .main-left {
+            float: left;
+        }
+
+        .main-right {
+            /* border: 1px solid purple; */
+            width: 296px;
+            height: 496px;
+            /* display: inline; */
+            float: right;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .target {
+            width: 610px;
+            height: 158px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .result {
+            width: 610px;
+            height: 158px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .process {
+            width: 610px;
+            height: 158px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .comment {
+            width: 610px;
+            height: 300px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .comment-title {
+            width: 575px;
+            margin: 0 auto;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgba(51, 51, 51, 1);
+            border-bottom: 1px solid #F3F3F3;
+        }
+
+        .comment-frame {
+            width: 575px;
+            /* margin: 0 auto; */
+            padding-top: 15px;
+            margin-left: 30px;
+            /* float: left; */
+        }
+
+        .comment-frame input {
+            width: 470px;
+            height: 36px;
+            border-radius: 4px;
+            border: 1px solid rgba(151, 151, 151, 1);
+            /* float: left; */
+        }
+
+        .comment-frame button {
+            width: 66px;
+            height: 38px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgb(159, 151, 151);
+            line-height: 36px;
+            margin-left: 18px;
+            border-radius: 4px;
+            background: rgba(238, 238, 238, 1);
+            border: none;
+            cursor: pointer
+        }
+
+        .more {
+            width: 610px;
+            height: 40px;
+            line-height: 40px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+            text-align: center;
+
+        }
+
+        .main span {
+            color: #333333;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .more img {
+            width: 11px;
+            height: 6px;
+            margin-left: 10px;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        .title {
+            width: 610px;
+            height: 100%;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .okr-title {
+            width: 574px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: 18px;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        .okr-title img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            float: left;
+            clear: both;
+        }
+
+        .okr-title span {
+            font-size: 14px;
+            float: right;
+            /* clear: both; */
+            color: rgba(153, 153, 153, 1);
+        }
+
+        .contents {
+            margin-top: 10px;
+            width: 574px;
+            /* height: 44px; */
+            margin-left: 18px;
+        }
+
+        .jump {
+            font-size: 14px;
+            color: rgba(153, 153, 153, 1);
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .likes {
+            margin-top: 17px;
+            margin-left: 18px;
+            margin-bottom: 17px;
+        }
+
+        .key_results {
+            width: 610px;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 4px;
+            margin-top: 11px;
+        }
+
+        .content-box {
+            margin-top: 12px;
+            margin-left: 18px;
+            margin-right: 18px;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .extend {
+            height: 44px;
+        }
+
+        .action {
+            width: 610px;
+            height: 100%;
+            background: #ffffff;
+            border-radius: 4px;
+            margin-top: 11px;
+        }
+
+        .open-retract {
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 564px;
+        }
+    </style>
+</head>
+
+<body style="background:rgba(236,239,243,1)">
+    <div id="container">
+        <div class="top">
+            <div class="logo">
+                <a href="">okr</a>
+                <div class="land">
+                    <span>登陆</span>
+                    <span>注册</span>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <!-- <div class="main-left">hsdshajdhsajdhs </div> -->
+            <div class="main-left">
+
+                <!-- <div class="target">目标</div>
+                <div class="result">结果</div>
+                <div class="process">过程</div> -->
+
+                <div class="title">
+                    <div class="okr-title">
+                        <a href="/personal">
+                            <img src="http://pic.58pic.com/58pic/15/61/85/55Y58PICXeV_1024.png" alt="">
+                        </a>
+                        <!-- <span>{{ okr.avatar }}</span> -->
+                        <a class="jump" href="/personal">{{ details.username }}</a>
+                        <span>{{ details.created_at }}</span>
+                    </div>
+
+                    <div class="contents">
+                        <h4>{{ details.object }}</h4>
+                    </div>
+                    <div class="likes">点赞</div>
+                </div>
+
+                <div class="key_results">
+                    <div class="content-box extend">
+                        {{ details.key_results }}
+                    </div>
+                    <div class="open-retract">
+                        <span class="open">展开</span>
+                    </div>
+                </div>
+
+                <div class="action">
+                    <div class="content-box">
+                        {{ details.action }}
+                    </div>
+                    <div class="open-retract">
+                        <span class="open">展开</span>
+                    </div>
+                </div>
+
+                <div class="comment">
+                    <div class="comment-title">
+                        评论(100)
+                    </div>
+                    <div class="comment-frame">
+                        <form action="/api/content" method="POST">
+                            <input type="text" name="content" placeholder="请输入您的内容">
+                            <input type="submit" value="评论" />
+                        </form>
+                        <!-- <button>评论</button> -->
+
+                    </div>
+                </div>
+                <div class="more">
+                    <span>查看更多</span>
+                    <img src="/jiantou.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="main-right"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+            $('.open').click(function () {
+                $('.content-box').toggleClass('extend');
+                var shouqi = $(this).text();
+                if (shouqi == '展开') {
+                    $(this).text('收起')
+                }
+
+                else {
+                    $(this).text('展开')
+                }
+            
+            })
+
+
+    </script>
+</body>
+
+</html>
