@@ -62,16 +62,14 @@
         }
 
         .main-left {
-            float: left;
+            width: 610px;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 4px;
+
         }
 
-        .title {
-            width: 610px;
-            height: 158px;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 1);
-            border-radius: 4px;
-        }
+
 
         .main-right {
             width: 296px;
@@ -143,13 +141,27 @@
             font-size: 14px;
         }
 
-        .input-box button {
+        .gain {
             font-size: 14px;
             color: rgba(74, 144, 226, 1);
             background: none;
             border: none;
             outline: none;
             cursor: pointer;
+            float: right;
+            clear: both;
+        }
+
+        .gain-1 {
+            font-size: 14px;
+            color: rgba(74, 144, 226, 1);
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            float: right;
+            clear: both;
+            display: none;
         }
 
         .forget {
@@ -167,7 +179,7 @@
             margin-top: 29px;
         }
 
-        .modal-bottom button {
+        .modal-bottom input {
             width: 269px;
             height: 34px;
             background: rgba(74, 144, 226, 1);
@@ -210,44 +222,98 @@
             display: none;
             border-radius: 4px;
         }
-        .post{
-            position:relative;
+
+        .post {
             width: 610px;
             border-radius: 4px;
             margin-top: 20px;
-            background:rgba(255,255,255,1);
+            background: rgba(255, 255, 255, 1);
         }
-        .post-box{
+
+        .post-box {
             width: 100%;
             height: 100%;
             margin-left: 18px;
-            margin-top: 10px; 
-            padding: 0px; 
-            border-style: none; 
-            border-width: 0px; 
-            font-size: 18px; 
-            overflow-wrap: break-word; 
-            overflow: hidden; 
+            margin-top: 10px;
+            padding: 0px;
+            border-style: none;
+            border-width: 0px;
+            font-size: 18px;
+            overflow-wrap: break-word;
+            overflow: hidden;
             outline: none;
-            resize:none;
-            border:1px solid rgba(241,241,241,1);
+            resize: none;
+            border: 1px solid rgba(241, 241, 241, 1);
+        }
+
+        .title {
+            width: 610px;
+            height: 158px;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 4px;
+        }
+
+        .okr-title {
+            width: 574px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: 18px;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        .okr-title img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            float: left;
+            clear: both;
+        }
+
+        .okr-title span {
+            font-size: 14px;
+            float: right;
+            color: rgba(153, 153, 153, 1);
+        }
+
+        .contents {
+            margin-top: 10px;
+            width: 574px;
+            height: 44px;
+            margin-left: 18px;
+        }
+
+        .contents a {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+            line-height: 22px;
+            text-decoration: none;
+        }
+
+        .jump {
+            font-size: 14px;
+            color: rgba(153, 153, 153, 1);
+            margin-left: 10px;
+            text-decoration: none;
         }
 
         .posted {
-            width:540px;
-            height:80px;
-            margin-top: 10px;
-            margin-left:15px;
+            width: 540px;
+            height: 80px;
+            margin-top: 10px;  
+            margin-left: 15px;
         }
 
         .post-content {
-            margin-left:18px;
+            margin-left: 18px;
         }
 
         .button1 {
-            width:70px;
-            height:33px;
-            margin:10px 18px 16px 522px;
+            width: 70px;
+            height: 33px;
+            margin: 10px 18px 16px 522px;
         }
     </style>
 </head>
@@ -259,32 +325,45 @@
             <div class="logo">
                 <a href="">okr</a>
                 <div class="land">
-                    <span class="landing">登陆</span>
-                    <span class="register">注册</span>
+                    <span class="landing bbb">登陆</span>
+                    <span class="register bbb">注册</span>
                 </div>
             </div>
         </div>
+        <div>{{ username }}</div>
         <div class="main">
             <div class="main-left">
                 <div class="post">
-                    <div style="margin-left: 20px;padding-top:16px;">给自己定个小目标吧！</div>
+                    <div style="margin-top:16px;margin-left:21px">给自己定个小目标吧！</div>
                     <form action="/api/post" method="POST">
-                      <div class="post-content">o: <input class="posted"  type="text" name="o" placeholder="  请输入您的内容......"></div> 
-                      <div class="post-content">K: <input class="posted"  type="text" name="k" placeholder="  请输入您的内容......"></div> 
-                      <div class="post-content">R: <input class="posted"  type="text" name="r" placeholder="  请输入您的内容......"></div> 
-                    <div><button class="button1">发布</button></div>
-                </form>
+                        <div class="post-content">o:
+                            <input class="posted" type="text" name="o" placeholder="  请输入您的内容......">
+                        </div>
+                        <div class="post-content">K:
+                            <input class="posted" type="text" name="k" placeholder="  请输入您的内容......">
+                        </div>
+                        <div class="post-content">R:
+                            <input class="posted" type="text" name="r" placeholder="  请输入您的内容......">
+                        </div>
+                        <div>
+                            <button class="button1">发布</button>
+                        </div>
+                    </form>
                 </div>
-                {% for okr in okrs %}
-                <div class="title">
+                <div id="okr"></div>
+                <!-- <div class="title">
+                    <div class="okr-title">
+                        <a href="/personal/{{ okr.user_id }}"><img src="http://pic.58pic.com/58pic/15/61/85/55Y58PICXeV_1024.png"
+                                alt=""></a>
+                        <a class="jump" href="/personal/{{ okr.user_id }}">{{ okr.username }}</a>
+                        <span>{{ okr.created_at }}</span>
+                    </div>
 
-                    
-                    <div>{{ okr.created_at}}</div>
-                    <div>{{ okr.object}}</div>
-                   
-
-                </div>
-                {% endfor %}
+                    <div class="contents">
+                        <a href="/details/{{okr.id}}">{{ okr.object }}</a>
+                    </div>
+                </div> -->
+                
             </div>
 
             <div class="main-right"></div>
@@ -318,7 +397,10 @@
                     <div class="input-box" style="padding-top: 30px;">
                         <input name="password" autocomplete="off" placeholder="请输入您的密码"></div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input name="token" autocomplete="off" placeholder="请输入6位验证码"><button>获取验证码</button></div>
+                        <input style="width:120px;" name="token" autocomplete="off" placeholder="请输入6位验证码">
+                        <span class="gain">获取验证码</span>
+                        <span class="gain-1">请在60秒内输入验证码</span>
+                    </div>
                     <div class="modal-bottom">
                         <input type="submit" value="注册" />
                         <!-- <button>注册</button> -->
@@ -328,10 +410,30 @@
             </div>
         </div>
     </div>
+    
+    {% raw %}
+    <script type="template" id="template">
+        {{#okr}}
+        <div class="title">
+            
+                <div class="okr-title">
+                    <a><img src="{{avatar}}"></a>
+                    <a class="nameStyle" href="">{{username}}</a>
+                    <span>{{created_at}}</span>
+                </div>
+                <div class="contents">
+                    <a href="">{{ object }}</a>
+                </div>
+            
+        </div>
+        {{/okr}}
+    </script>{% endraw %}
 
 
     <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/mustache.js/2.3.0/mustache.min.js"></script>
     <script>
+
 
 
         $('.landing').click(function () {
@@ -344,16 +446,29 @@
             $('.mask').css('display', 'block');
             $('.modal').css('display', 'none');
             $('.modal-2').css('display', 'block');
+            $('.gain-1').css('display', 'none');
+            $('.gain').css('display', 'block');
         })
 
         $('.close').click(function () {
             $('.mask').css('display', 'none');
             $('.modal').css('display', 'none');
-            $('.modal-2').css('display', 'none')
+            $('.modal-2').css('display', 'none');
         });
 
-        $('.spot').click(function () {
-            $('.spot').css()
+        $('.gain').click(function () {
+            $('.gain').css('display', 'none');
+            $('.gain-1').css('display', 'block');
+        })
+
+        var $t = $('#template');
+        var tContent = $t.text();
+
+        $.get('/api/homepage', function (res) {
+            // var data = res.data;
+            // console.log('data:',data)
+            var html = Mustache.render(tContent, { okr: res });
+            $('#okr').append(html);
         })
     </script>
 </body>
