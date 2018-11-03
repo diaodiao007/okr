@@ -66,6 +66,7 @@
             height: auto;
             margin-top: 20px;
             border-radius: 4px;
+            float:left;
 
         }
 
@@ -77,7 +78,7 @@
             float: right;
             background: rgba(255, 255, 255, 1);
             border-radius: 4px;
-            margin-top: 20px;
+            margin-top: 40px;
         }
 
         .mask {
@@ -302,7 +303,7 @@
         .posted {
             width: 540px;
             height: 80px;
-            margin-top: 10px;  
+            margin-top: 10px;
             margin-left: 15px;
         }
 
@@ -335,20 +336,23 @@
             <div class="main-left">
                 <div class="post">
                     <div style="margin-top:16px;margin-left:21px">给自己定个小目标吧！</div>
-                    <form action="/api/post" method="POST">
-                        <div class="post-content">o:
-                            <input class="posted" type="text" name="o" placeholder="  请输入您的内容......">
-                        </div>
-                        <div class="post-content">K:
-                            <input class="posted" type="text" name="k" placeholder="  请输入您的内容......">
-                        </div>
-                        <div class="post-content">R:
-                            <input class="posted" type="text" name="r" placeholder="  请输入您的内容......">
-                        </div>
-                        <div>
-                            <button class="button1">发布</button>
-                        </div>
-                    </form>
+                    <!-- <form action="/api/post" method="POST"></form> -->
+                    <div class="post-content" >o:
+                        <input class="posted" id="object" type="text" name="o" placeholder="  请输入您的内容......">
+                    </div>
+                    <div class="post-content" >K:
+                        <input class="posted" id="key" type="text" name="k" placeholder="  请输入您的内容......">
+                    </div>
+                    <div class="post-content" >R:
+                        <input class="posted" id="results" type="text" name="r" placeholder="  请输入您的内容......">
+                    </div>
+                    <div>
+                        <button class="button1">发布</button>
+                    </div>
+
+
+
+                    <!-- </form> -->
                 </div>
                 <div id="okr"></div>
                 <!-- <div class="title">
@@ -363,7 +367,7 @@
                         <a href="/details/{{okr.id}}">{{ okr.object }}</a>
                     </div>
                 </div> -->
-                
+
             </div>
 
             <div class="main-right"></div>
@@ -371,46 +375,56 @@
 
             <div class="mask"></div>
             <div class="modal">
-                <div class="modal-title"><img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true"
-                        alt=""></div>
+                <div class="modal-title">
+                    <img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true" alt="">
+                </div>
                 <div class="modal-land">登陆</div>
-                <form action="/api/land" method="POST">
+                <!-- <form action="/api/land" method="POST"> -->
                     <div class="input-box">
-                        <input name="phone" autocomplete="off" placeholder="电话号码"></div>
+                        <input id="phone" name="phone" autocomplete="off" placeholder="电话号码">
+                    </div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input name="password" autocomplete="off" placeholder="密码"></div>
+                        <input id="password" name="password" autocomplete="off" placeholder="密码">
+                    </div>
                     <div class="forget">忘记密码？</div>
                     <div class="modal-bottom">
-                        <input type="submit" value="登陆" />
+                        <input class="login" type="submit" value="登陆" />
                         <!-- <button>登陆</button> -->
                     </div>
-                </form>
-                <div class="modal-bottom-2">没有账号?<span class="register">注册</span></div>
+                <!-- </form> -->
+                <div class="modal-bottom-2">没有账号?
+                    <span class="register">注册</span>
+                </div>
             </div>
             <div class="modal-2">
-                <div class="modal-title"><img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true"
-                        alt=""></div>
+                <div class="modal-title">
+                    <img class="close" src="https://github.com/diaodiao007/okr/blob/master/cha.jpg?raw=true" alt="">
+                </div>
                 <div class="modal-land">注册</div>
-                <form action="/api/register" method="POST">
+                <!-- <form action="/api/register" method="POST"> -->
                     <div class="input-box">
-                        <input name="phone" autocomplete="off" placeholder="手机号码"></div>
+                        <input id="phones" name="phone" autocomplete="off" placeholder="手机号码">
+                    </div>
                     <div class="input-box" style="padding-top: 30px;">
-                        <input name="password" autocomplete="off" placeholder="请输入您的密码"></div>
+                        <input id="passwords" name="password" autocomplete="off" placeholder="请输入您的密码">
+                    </div>
                     <div class="input-box" style="padding-top: 30px;">
                         <input style="width:120px;" name="token" autocomplete="off" placeholder="请输入6位验证码">
                         <span class="gain">获取验证码</span>
                         <span class="gain-1">请在60秒内输入验证码</span>
                     </div>
                     <div class="modal-bottom">
-                        <input type="submit" value="注册" />
+                        <input id="register" type="submit" value="注册" />
                         <!-- <button>注册</button> -->
                     </div>
-                </form>
-                <div class="modal-bottom-2">已有账号?<span class="landing">登陆</span></div>
+                <!-- </form> -->
+                <div class="modal-bottom-2">已有账号?
+                    <span class="landing">登陆</span>
+                </div>
             </div>
         </div>
     </div>
-    
+
     {% raw %}
     <script type="template" id="template">
         {{#okr}}
@@ -461,15 +475,92 @@
             $('.gain-1').css('display', 'block');
         })
 
-        var $t = $('#template');
-        var tContent = $t.text();
 
-        $.get('/api/homepage', function (res) {
-            // var data = res.data;
-            // console.log('data:',data)
-            var html = Mustache.render(tContent, { okr: res });
-            $('#okr').append(html);
+        $('.button1').click(function () {
+                var o = $('#object').val();
+                var k = $('#key').val();
+                var r = $('#results').val();
+
+                $.ajax({
+                    url: '/api/post',
+                    data: { o: o, k: k, r: r },
+                    type: "POST",
+                    dataType: "TEXT",
+                    success: function (data) {
+                        window.location.href = 'http://localhost:3000/'
+                    }
+                })
+            });
+        
+        $('.login').click(function(){
+            var phone = $('#phone').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url:'/api/land',
+                data:{phone:phone,password:password},
+                type:"POST",
+                dataType:"TEXT",
+                success: function(data){
+                    console.log('data:',data)
+                    if(data != "对不起，用户名或密码错误"){
+                        window.location.href = 'http://localhost:3000/'
+                    }
+                    else{
+                        alert("登陆失败，用户名或密码错误！")
+                    }
+                }
+            })
+        });
+
+        $('#register').click(function(){
+            var phone = $('#phones').val();
+            var password = $('#passwords').val();
+
+            $.ajax({
+                url:'/api/register',
+                data:{phone:phone,password:password},
+                type:"POST",
+                dataType:"TEXT",
+                success: function(data){
+                    if (data == "注册成功") {
+                        window.location.href = 'http://localhost:3000/'
+                    }
+                    
+                    else {
+                        alert('对不起，用户名或密码已被占用')
+                    }
+                    
+                }
+            })
         })
+
+
+            var t = $('#template').text();
+            $.ajax({
+                url:'/api/homepage',
+                data:{t:t},
+                type:"GET",
+                dataType:"html",
+                success: function(data){
+                        var html = Mustache.render(t, { okr: data });
+                        $('#okr').append(html);
+                        // window.location.href = 'http://localhost:3000/'
+                    }
+            })
+
+        // var $t = $('#template');
+        // var tContent = $t.text();
+
+        // $.get('/api/homepage', function (res) {
+        //     // var data = res.data;
+        //     // console.log('data:',data)
+        //     var html = Mustache.render(tContent, { okr: res });
+        //     $('#okr').append(html);
+        // })
+
+            
+
     </script>
 </body>
 

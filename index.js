@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 
 app.get('/', function (req, res) {
-    res.render('homepage1.html');
+    res.render('homepage.html');
 });
 
 // app.get('/api/*', function (req, res) {
@@ -42,18 +42,19 @@ app.get('/', function (req, res) {
 app.get('/api/homepage', function (req, res) {
     res.cookie("test", "value");
     var page = req.query.page || 1;
-    var size = 10;
+    var size = 100;
 
     connection.query(`select *,
                     (select username from user where user.id = okr.user_id) as username,
                     (select avatar from user where user.id = okr.user_id) as avatar
                     from okr limit ?, ?`, [(page - 1) * size, size], function (err, data) {
             var username = req.cookies.username;
+            console.log('data:',data)
             res.json(data);
         })
 });
 
-app.get('/details/:id',function(req,res){
+app.get('/details/:id', function (req, res) {
     // var okr_id = req.params.id;
     res.render('details.html')
 })
@@ -61,12 +62,12 @@ app.get('/details/:id',function(req,res){
 app.get('/api/details/:id', function (req, res) {
     // console.log('111111111')
     var okr_id = req.params.id;
-    console.log('12:',okr_id)
+    console.log('12:', okr_id)
     connection.query(`select * from okr where id=?`, [okr_id], function (err, data) {
-            res.json(data);
-            console.log('111:',data)
-            // res.cookie('okr_id')
-        });
+        res.json(data);
+        console.log('111:', data)
+        // res.cookie('okr_id')
+    });
 });
 
 app.get('/api/comments/:id', function (req, res) {
@@ -79,7 +80,7 @@ app.get('/api/comments/:id', function (req, res) {
                     (select avatar from user where user.id=comment.user_id) as avatar
                     from comment where okr_id=? limit ?, ?`, [okr_id, (page - 1) * size, size], function (err, data) {
             res.json(data);
-            console.log('22:',data)
+            console.log('22:', data)
         })
 });
 
@@ -98,7 +99,7 @@ app.get('/api/comments/:id', function (req, res) {
 //         });
 // });
 
-app.get('/personal/:id',function(req,res){
+app.get('/personal/:id', function (req, res) {
     res.render('personal.html');
 })
 
@@ -108,34 +109,31 @@ app.get('/api/personal/:id', function (req, res) {
     var size = 10;
 
     connection.query('select * from user where id=?', [user_id], function (err, user_info) {
-        console.log('user_info:',user_info)
+        console.log('user_info:', user_info)
         connection.query('select * from okr where user_id=? limit ?, 2', [user_id, (page - 1) * size, size], function (err, okr_list) {
-            console.log('456:',okr_list)
+            console.log('456:', okr_list)
             // res.render('personal.html', { user_info: user_info, okr_list: okr_list });
-            res.json({user_info,okr_list})
+            res.json({ user_info, okr_list })
         });
     });
 });
 
 app.post('/api/land', function (req, res) {
-    // console.log(req.body.username)   
     var phone = req.body.phone;
     var password = req.body.password;
 
     connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
-        res.cookie('pid', data[0].id)
-        res.cookie('username', data[0].username)
         if (data.length > 0) {
-            var token = phone + password + new Date().getTime()
-            connection.query('update user as t set t.token = ? where phone = ?', [token, phone], function (err, data) {
-                res.cookie('token', token);
-                res.cookie
-                // res.render('homepage.html')
-                res.json({ code: 1 });
-            })
-            // res.cookie('pid',data[0].id)
-            // res.cookie('username',data[0].username)
-            // res.render('homepage.html')
+            res.cookie('pid', data[0].id)
+            res.cookie('username', data[0].username)
+            if (data.length > 0) {
+                var token = phone + password + new Date().getTime()
+                connection.query('update user as t set t.token = ? where phone = ?', [token, phone], function (err, data) {
+                    res.cookie('token', token);
+                    // res.render('homepage.html')
+                    res.json({ code: 1 });
+                })
+            }
         }
         else {
             res.send('对不起，用户名或密码错误')
@@ -144,16 +142,27 @@ app.post('/api/land', function (req, res) {
 })
 
 app.post('/api/register', function (req, res) {
-    // console.log(req.body.phone)
     var phone = req.body.phone;
     var password = req.body.password;
     var username = phone.substr(0, 3) + phone.substr(7);
     var token = req.body.token;
-    var created_at = moment().format('l')
+    var created_at = moment().format('YY-MM-DD HH-MM-SS')
 
-    connection.query('insert into user values (null, ?, ?, ?, "http://pic.58pic.com/58pic/15/61/85/55Y58PICXeV_1024.png", null, ?)', [phone, password, username, token, created_at], function (err, data) {
-        res.render('homepage.html', { okrs: data });
+    connection.query('select * from user where phone=? and password=? limit 1', [phone, password], function (err, data) {
+        if (data.length == 0) {
+                connection.query('insert into user values (null, ?, ?, ?, "http://pic.58pic.com/58pic/15/61/85/55Y58PICXeV_1024.png", ?, ?)',
+                [phone, password, username, token, created_at], function (err, data) {
+                    // res.render('homepage.html');
+                    console.log('data:', data)
+                    res.send("注册成功");
+                })
+        }
+
+        else {
+            res.send('对不起，用户名或密码已被占用')
+        }
     })
+
 })
 
 app.post('/api/post', function (req, res) {
@@ -163,7 +172,7 @@ app.post('/api/post', function (req, res) {
     var r = req.body.r;
     // var image = req.body.image;
     var uid = req.cookies.pid;
-    var created_at = moment().format('l')
+    var created_at = moment().format('YY-MM-DD HH-MM-SS')
     connection.query('insert into okr values (null, ?, ?, ?, ?, ?)', [o, k, r, uid, created_at], function (err, data) {
         res.render('homepage.html')
     })
@@ -176,7 +185,7 @@ app.post('/api/content', function (req, res) {
     var content = req.body.content;
     console.log(content)
     var pid = req.cookies.pid;
-    var created_at = moment().format('l')
+    var created_at = moment().format('YY-MM-DD HH-MM-SS')
     connection.query('insert into comment values (null, ?, ?, ?, ?)', [oid, pid, content, created_at], function (err, data) {
         res.send('评论成功')
     })
