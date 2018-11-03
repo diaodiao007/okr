@@ -315,6 +315,7 @@
             width: 70px;
             height: 33px;
             margin: 10px 18px 16px 522px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -423,7 +424,10 @@
                 </div>
             </div>
         </div>
+
+        <a class="more" href="">查看更多</a>
     </div>
+
 
     {% raw %}
     <script type="template" id="template">
@@ -537,11 +541,11 @@
 
 
             var t = $('#template').text();
-            $.ajax({
-                url:'/api/homepage',
+            $.ajax({  
+                url:'/api/homepage?page=',
                 data:{t:t},
                 type:"GET",
-                dataType:"html",
+                dataType:"json",
                 success: function(data){
                         var html = Mustache.render(t, { okr: data });
                         $('#okr').append(html);
@@ -558,6 +562,30 @@
         //     var html = Mustache.render(tContent, { okr: res });
         //     $('#okr').append(html);
         // })
+
+
+        function getQueryFromUrl(key, url) {
+            url = url ? url.replace('?', '') : window.location.search.replace('?', '');
+            var arr = url.split('&');
+
+            var queryObj = {};
+
+            for (var i = 0; i < arr.length; i++) {
+                var el = arr[i];
+                var elArr = el.split('=');
+                queryObj[elArr[0]] = elArr[1];
+            }
+
+            return queryObj[key]
+        }
+
+        var page = parseInt(getQueryFromUrl('page', window.location.search));
+        if (!page) {
+            page = 1
+        }
+
+        var url = '/api/homepage' + '?page=' + (page + 1);
+        $('.more').attr('href', url);
 
             
 

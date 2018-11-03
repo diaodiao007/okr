@@ -30,19 +30,10 @@ app.get('/', function (req, res) {
     res.render('homepage.html');
 });
 
-// app.get('/api/*', function (req, res) {
-//     // console.log(req.originalUrl);
-//     var url = req.originalUrl;
-//     console.log('url:', url)
-//     request.get('http://localhost:3000' + url, function (err, resp) {
-//         res.send(JSON.parse(resp.body))
-//     })
-// });
-
 app.get('/api/homepage', function (req, res) {
     res.cookie("test", "value");
     var page = req.query.page || 1;
-    var size = 100;
+    var size = 10;
 
     connection.query(`select *,
                     (select username from user where user.id = okr.user_id) as username,
@@ -68,7 +59,7 @@ app.get('/api/details/:id', function (req, res) {
         console.log('111:', data)
         // res.cookie('okr_id')
     });
-});
+});  
 
 app.get('/api/comments/:id', function (req, res) {
     var okr_id = req.query.okr_id
@@ -174,7 +165,8 @@ app.post('/api/post', function (req, res) {
     var uid = req.cookies.pid;
     var created_at = moment().format('YY-MM-DD HH-MM-SS')
     connection.query('insert into okr values (null, ?, ?, ?, ?, ?)', [o, k, r, uid, created_at], function (err, data) {
-        res.render('homepage.html')
+        res.json(data)
+        // res.render('homepage.html')
     })
     // console.log(content)
 })
